@@ -1,30 +1,37 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+  import Hero from './components/Hero.vue'
+  import { ref, onMounted } from 'vue';
+
+  const hero = ref();
+
+  let replies = ['Привет, дорогой абитуриент!', 
+'Сегодня ты познакомишься с главными образовательными окрестностями Великого Новгорода!', 'Пройдёшь увлекательный маршрут, получишь новые знания и интересные факты!', 
+'Хорошего тебе пути, желаю успехов!'];
+
+  let i = 1;
+  let isSaying = true;
+
+  onMounted(() => {
+    hero.value.say(replies[0], 0).then(result => {
+      isSaying = false;
+    })
+    document.addEventListener('click', () => {
+      if (i < replies.length && !isSaying) {
+        isSaying = true;
+        hero.value.text = '';
+        hero.value.say(replies[i], 0).then(result => {
+          isSaying = false;
+          i++;
+        });
+      }
+    });
+  });
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <Hero ref="hero"/>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
