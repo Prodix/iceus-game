@@ -12,17 +12,39 @@
   let isSaying = true;
 
   onMounted(() => {
-    hero.value.say(replies[0], 0).then(result => {
-      isSaying = false;
-    })
+    const comment = document.getElementById("comment");
+    const span = document.querySelector("#comment > span");
+    const heroImage = document.getElementById("hero");
+    hero.value.isHidden = false;
+    setTimeout(() => {
+      comment.classList.add('showed');
+      heroImage.classList.add('showed');
+      hero.value.say(replies[0], 0).then(result => {
+        span.classList.add('showed');
+        setTimeout(() => {
+            isSaying = false;
+          }, 500);
+      });
+    }, 2000); 
     document.addEventListener('click', () => {
       if (i < replies.length && !isSaying) {
+        span.classList.remove('showed');
         isSaying = true;
         hero.value.text = '';
         hero.value.say(replies[i], 0).then(result => {
-          isSaying = false;
-          i++;
+          span.classList.add('showed');
+          setTimeout(() => {
+            isSaying = false;
+            i++;
+          }, 500);
         });
+      }
+      else if (i >= replies.length) {
+        comment.classList.remove('showed');
+        setTimeout(() => {
+          hero.value.isHidden = true;
+          hero.value.text = '';
+        }, 2000);
       }
     });
   });

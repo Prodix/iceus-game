@@ -4,6 +4,7 @@
 
     const text = ref('');
     const speed = 50;
+    const isHidden = ref(true);
 
     const say = (txt, i) => {
         return new Promise(function (resolve, reject) {
@@ -32,7 +33,8 @@
 
     defineExpose({
         say,
-        text
+        text,
+        isHidden
     });
     
 </script>
@@ -41,8 +43,9 @@
     <div id="hero-container">
         <div>
             <img id="hero" :src="hero" alt="hero"/>
-            <div id="comment">
+            <div v-show="!isHidden" id="comment">
                 <p>{{ text }}</p>
+                <span>Далее</span>
             </div>
         </div>
     </div>
@@ -58,6 +61,11 @@
     img {
         width: 300px;
         user-select: none;
+        opacity: 0;
+        transition: opacity .5s;
+    }
+    img.showed {
+        opacity: 1;
     }
     #comment {
         width: 300px;
@@ -66,6 +74,8 @@
         position: relative;
         border-radius: 10px;
         position: absolute;
+        transition: opacity 1s;
+        opacity: 0;
 
         &::before {
             content: '';
@@ -77,6 +87,22 @@
             border-style: solid;
             border-color: transparent transparent transparent white; 
         }
+    }
+    #comment.showed {
+        opacity: 1;
+    }
+    #comment > span {
+        color: black;
+        font-family: 'MP Manga';
+        position: absolute;
+        right: 10px;
+        bottom: 0;
+        opacity: 0;
+        transition: opacity 0s;
+    }
+    #comment > span.showed {
+        opacity: 1;
+        transition: opacity .2s;
     }
     p {
         color: black;
