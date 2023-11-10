@@ -45,7 +45,7 @@
 
 <style scoped>
     img {
-        width: 300px;
+        width: 550px;
         user-select: none;
     }
     #hero-container {

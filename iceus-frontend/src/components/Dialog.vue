@@ -99,8 +99,8 @@
         setTimeout(() => {
             const comment = document.getElementById("comment");
             const hero = document.getElementById("hero");
-            comment.style.left = hero.width + 'px';
-            comment.style.bottom = hero.height + 'px';
+            comment.style.left = hero.width - 150 + 'px';
+            comment.style.bottom = hero.height - 100 + 'px';
             sayReply(props.replies);
         }, 1000);
     });

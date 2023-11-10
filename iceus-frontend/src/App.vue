@@ -2,6 +2,9 @@
   import Hero from './components/Hero.vue';
   import Quiz from './components/Quiz.vue';
   import Dialog from './components/Dialog.vue';
+  import Schema from './components/Schema.vue';
+  import Tv from './components/Tv.vue';
+  import background from './assets/background.png';
   import { ref, onMounted, watch, toRef } from 'vue';
 
   const hero = ref();
@@ -111,12 +114,15 @@
 </script>
 
 <template>
+  <img :src="background" id="back">
   <transition name="test">
     <Dialog v-show="isShowed" :replies="replies" ref="dialog" 
     v-model:isDialogShowed="isShowed" 
     :hero="hero"
     v-model:isQuizShowed="isQuizShowed"/>
   </transition>  
+  <Schema/>
+  <Tv/>
   <Hero ref="hero"/>
   <transition name="transtwo">
     <Quiz v-show="isQuizShowed" @clicked="onAnswerPicked" ref="quiz" 
@@ -140,5 +146,13 @@
     opacity: 0;
   }
   
-  
+  #back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+  }
+
 </style>
