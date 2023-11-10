@@ -70,13 +70,12 @@
   const negativeAnswers = ['Подумай ещё раз!'];
 
   function onAnswerPicked(val) {
-    const comment = document.getElementById('comment');
-    const span = comment.querySelector('span');
     isShowed.value = true;
 
     if (val === true) {
       let index = Math.floor(Math.random() * positiveAnswers.length);
       isSaying.value = true;
+      hero.value.changeHeroState('accept');
       dialog.value.sayOne(positiveAnswers[index], 0).then(() => {
         setTimeout(() => {
           dialog.value.clearText();
@@ -91,6 +90,7 @@
       });
     }
     else {
+      hero.value.changeHeroState('wrong');
       let index = Math.floor(Math.random() * negativeAnswers.length);
       isSaying.value = true;
       dialog.value.sayOne(negativeAnswers[index], 0).then(() => {
@@ -114,6 +114,7 @@
   <transition name="test">
     <Dialog v-show="isShowed" :replies="replies" ref="dialog" 
     v-model:isDialogShowed="isShowed" 
+    :hero="hero"
     v-model:isQuizShowed="isQuizShowed"/>
   </transition>  
   <Hero ref="hero"/>

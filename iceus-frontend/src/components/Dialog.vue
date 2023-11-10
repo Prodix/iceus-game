@@ -70,6 +70,7 @@
         
         setTimeout(() => {
             clearText();
+            props.hero.changeHeroState('default');
             props.isQuizShowed = true;
             emit('update:isQuizShowed', true);
             return true;
@@ -85,7 +86,8 @@
     const props = defineProps([
         'replies',
         'isDialogShowed',
-        'isQuizShowed'
+        'isQuizShowed',
+        'hero'
     ]);
 
     const emit = defineEmits([
