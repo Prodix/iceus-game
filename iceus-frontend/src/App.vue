@@ -110,8 +110,11 @@
       isSaying.value = true;
       dialog.value.sayOne(negativeAnswers[index], 0).then(() => {
         setTimeout(() => {
-          dialog.value.clearText();
-          isSaying.value = false;
+          dialog.value.closeDialog();
+          setTimeout(() => {
+            dialog.value.clearText();
+            isSaying.value = false;
+          }, 1000);
         }, 1000);
       });
     }
