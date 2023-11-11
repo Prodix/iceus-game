@@ -12,7 +12,7 @@
 <style scoped>
     #tv {
         position: absolute;
-        z-index: -1;
+        z-index: -2;
         left: 29.55%;
         top: 37.15%;
         height: 14.5%;

@@ -13,6 +13,7 @@
   const isQuizShowed = ref(false);
   const isSaying = ref(false);
   const isShowed = ref(false);
+  const schema = ref();
 
   let i = 0;
 
@@ -81,14 +82,25 @@
       hero.value.changeHeroState('accept');
       dialog.value.sayOne(positiveAnswers[index], 0).then(() => {
         setTimeout(() => {
-          dialog.value.clearText();
-          isSaying.value = false;
-          if (i === quizData.length - 1) {
+          dialog.value.closeDialog();
+          setTimeout(() => {
+            dialog.value.clearText();
+            isSaying.value = false;
             isQuizShowed.value = false;
-          } else {
-            currentQuiz.value = quizData[++i];
-            currentQuestion.value = questions[i];
-          }
+            hero.value.changeHeroVisibility(false);
+            schema.value.maximize();
+            schema.value.showNextPath();
+            setTimeout(() => {
+              schema.value.minimize();
+              setTimeout(() => {
+                if (i !== quizData.length - 1) {
+                  currentQuiz.value = quizData[++i];
+                  currentQuestion.value = questions[i];
+                  isQuizShowed.value = true;
+                }
+              }, 2000);
+            }, 3000);
+          }, 1000);
         }, 1000); 
       });
     }
@@ -121,7 +133,7 @@
     :hero="hero"
     v-model:isQuizShowed="isQuizShowed"/>
   </transition>  
-  <Schema/>
+  <Schema ref="schema"/>
   <Tv/>
   <Hero ref="hero"/>
   <transition name="transtwo">
@@ -152,7 +164,7 @@
     top: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -2;
+    z-index: -10;
   }
 
 </style>

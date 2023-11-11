@@ -1,3 +1,3 @@
 <svg width="156" height="159" viewBox="0 0 156 159" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2.3791 156.63C0.379157 135.13 25.5281 110.793 48.4999 88.9993C75.9053 62.9993 112 70 131 44.4997C145.358 25.2297 153.255 6.30408 153.5 2.5" stroke="#E74C3C" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 10"/>
+<path class="dash-path" stroke="#E74C3C" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 10" d="M2.3791 156.63C0.379157 135.13 25.5281 110.793 48.4999 88.9993C75.9053 62.9993 112 70 131 44.4997C145.358 25.2297 153.255 6.30408 153.5 2.5"/>
 </svg>

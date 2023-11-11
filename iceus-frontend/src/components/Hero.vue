@@ -22,6 +22,11 @@
         }, 150);
     };
 
+    const changeHeroVisibility = (visibility) => {
+        const heroElement = document.getElementById('hero');
+        heroElement.style.zIndex = visibility === false ? '-4' : '0';
+    }
+
     onMounted(() => {
         setTimeout(() => {
             isHeroShown.value = true;
@@ -29,7 +34,8 @@
     });
 
     defineExpose({
-        changeHeroState
+        changeHeroState,
+        changeHeroVisibility
     });
 </script>
 

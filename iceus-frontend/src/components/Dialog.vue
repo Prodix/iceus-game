@@ -39,7 +39,6 @@
                 setTimeout(() => sayOne(txt, i).then(resolve, reject), speed.value);
             } else {
                 setTimeout(() => {
-                    closeDialog();
                     resolve();
                 }, 500);
             }
