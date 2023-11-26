@@ -9,6 +9,7 @@
 
   const hero = ref();
   const quiz = ref();
+  const tv = ref();
   const dialog = ref();
   const isQuizShowed = ref(false);
   const isSaying = ref(false);
@@ -54,7 +55,7 @@
     new Map([
       ['Хутынский монастырь', false],
       ['Николо-Вяжищский монастырь', false],
-      ['Антониево монастырь', true]
+      ['Антониев монастырь', true]
     ]),
     new Map([
       ['Музей письменности', true],
@@ -85,21 +86,30 @@
           dialog.value.closeDialog();
           setTimeout(() => {
             dialog.value.clearText();
-            isSaying.value = false;
             isQuizShowed.value = false;
             hero.value.changeHeroVisibility(false);
-            schema.value.maximize();
-            schema.value.showNextPath();
+            let mapa = document.getElementById('map');
+            mapa.style.zIndex = '-3';
+            tv.value.maximize();
             setTimeout(() => {
-              schema.value.minimize();
+              tv.value.minimize();
               setTimeout(() => {
-                if (i !== quizData.length - 1) {
-                  currentQuiz.value = quizData[++i];
-                  currentQuestion.value = questions[i];
-                  isQuizShowed.value = true;
-                }
-              }, 2000);
-            }, 3000);
+                mapa.style.zIndex = '-1';
+                schema.value.maximize();
+                schema.value.showNextPath();
+                setTimeout(() => {
+                  schema.value.minimize();
+                  setTimeout(() => {
+                    if (i !== quizData.length - 1) {
+                      currentQuiz.value = quizData[++i];
+                      currentQuestion.value = questions[i];
+                      isQuizShowed.value = true;
+                      isSaying.value = false;
+                    }
+                  }, 2000);
+                }, 3000);
+              }, 2500);
+            }, 5000);
           }, 1000);
         }, 1000); 
       });
@@ -137,7 +147,7 @@
     v-model:isQuizShowed="isQuizShowed"/>
   </transition>  
   <Schema ref="schema"/>
-  <Tv/>
+  <Tv ref="tv"/>
   <Hero ref="hero"/>
   <transition name="transtwo">
     <Quiz v-show="isQuizShowed" @clicked="onAnswerPicked" ref="quiz" 
@@ -168,6 +178,11 @@
     width: 100vw;
     height: 100vh;
     z-index: -10;
+  }
+
+  * {
+    user-select: none;
+    overflow: hidden;
   }
 
 </style>

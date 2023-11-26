@@ -30,12 +30,11 @@
         }, 1000);
     };
 
-
     const sayOne = (txt, i) => {
         return new Promise(function (resolve, reject) {
             if (i < txt.length) {
                 text.value += txt[i];
-                i++
+                i++;
                 setTimeout(() => sayOne(txt, i).then(resolve, reject), speed.value);
             } else {
                 setTimeout(() => {
@@ -49,7 +48,7 @@
         return new Promise(function (resolve, reject) {
             if (i < txt.length) {
                 text.value += txt[i];
-                i++
+                i++;
                 setTimeout(() => say(txt, i).then(resolve, reject), speed.value);
             } else {
                 resolve();
