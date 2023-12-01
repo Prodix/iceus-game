@@ -19,7 +19,7 @@
                         isSaying.value = false;
                         isNextTextShown.value = true;
                     });
-                } else if (!isSaying.value){
+                } else if (!isSaying.value) {
                     closeDialog();
                     document.removeEventListener('click', nextReply);
                 }
@@ -28,6 +28,35 @@
             nextReply();
             document.addEventListener('click', nextReply);
         }, 1000);
+    };
+
+    const sayEndReply = (replies, param) => {
+        let h = 0;
+        document.getElementById('comment').style.width = '32.3%';
+        setTimeout(() => {
+            return new Promise(resolve => {
+                const nextReply = () => {
+                    if (h < replies.length && !isSaying.value) {
+                        isSaying.value = true;
+                        isNextTextShown.value = false;
+                        clearText();
+                        say(replies[h], 0).then(() => {
+                            h++;
+                            isSaying.value = false;
+                            param.value = true;
+                        });
+                    } else if (!isSaying.value) {
+                        props.isDialogShowed = false;
+                        emit('update:isDialogShowed', false);
+    
+                        isNextTextShown.value = false;
+                        document.removeEventListener('click', nextReply);
+                    }
+                };
+    
+                nextReply();
+            })
+        }, 500);
     };
 
     const sayOne = (txt, i) => {
@@ -78,7 +107,9 @@
     defineExpose({
         sayOne,
         closeDialog,
-        clearText
+        clearText,
+        sayReply,
+        sayEndReply
     });
 
     const props = defineProps([
@@ -94,13 +125,21 @@
     ]);
 
     onMounted(() => {
-        setTimeout(() => {
+        window.onresize = (event) => {
             const comment = document.getElementById("comment");
             const hero = document.getElementById("hero");
-            comment.style.left = hero.width - 150 + 'px';
-            comment.style.bottom = hero.height - 100 + 'px';
+            comment.style.left = hero.width - (hero.width / 3) + 'px';
+            comment.style.bottom = hero.height - (hero.height / 5) + 20 + 'px';
+        };
+
+        const comment = document.getElementById("comment");
+        const hero = document.getElementById("hero");
+        comment.style.left = hero.width - (hero.width / 3) + 'px';
+        comment.style.bottom = hero.height - (hero.height / 5) + 40 + 'px';
+        
+        setTimeout(() => {
             sayReply(props.replies);
-        }, 1000);
+        }, 700);
     });
     
 
@@ -123,17 +162,25 @@
         src: url('../assets/MP Manga.ttf');
         font-weight: normal;
         font-style: normal;
+        font-size: 20px;
     }
+
+    @media screen and (max-width: 1200px) {
+        p, span {
+            font-size: 17px;
+        }
+    }
+
     * {
         user-select: none;
     }
     #comment{
-        width: 300px;
-        max-height: 400px;
+        width: 19.3%;
         background-color: white;
         position: relative;
         border-radius: 10px;
         position: absolute;
+        left: 10%;
 
         &::before {
             content: '';

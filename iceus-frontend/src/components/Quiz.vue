@@ -51,15 +51,14 @@
     }
     #quiz {
         position: absolute;
-        width: 650px;
-        left: 50%;
+        width: 60%;
+        left: 63%;
         transform: translateX(-50%);
         bottom: 0;
     }
     #quiz > p {
         background-color: white;
         color: black;
-        width: 100%;
         padding: 10px;
         border-radius: 10px;
     }
@@ -75,10 +74,10 @@
         color: black;
         border: none;
         padding: 10px;
-        width: 670px;
+        width: 100%;
         border-radius: 10px;
-        transition: 1s;
         font-family: MP Manga;
+        transition: background-color 1s;
     }
     .correct {
         transition: 1s;
@@ -89,6 +88,11 @@
         transition: 1s;
         color: white;
         background-color: red;
+    }
+    @media screen and (max-width: 1200px) {
+        p, span, button {
+            font-size: 17px;
+        }
     }
 </style>
 

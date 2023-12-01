@@ -30,13 +30,29 @@
     onMounted(() => {
         setTimeout(() => {
             isHeroShown.value = true;
+            setTimeout(() => {
+                const comment = document.getElementById("comment");
+                const hero = document.getElementById("hero");
+                comment.style.left = hero.width - (hero.width / 3) + 'px';
+                comment.style.bottom = hero.height - (hero.height / 5) + 40 + 'px';
+                props.isDialogShowed = true;
+                emit('update:isDialogShowed', true);
+            }, 1000)
         }, 500);
     });
+
+    const emit = defineEmits([
+        'update:isDialogShowed'
+    ]);
 
     defineExpose({
         changeHeroState,
         changeHeroVisibility
     });
+
+    const props = defineProps([
+        'isDialogShowed'
+    ]);
 </script>
 
 <template>
@@ -51,7 +67,7 @@
 
 <style scoped>
     img {
-        width: 550px;
+        width: 35.2%;
         user-select: none;
     }
     #hero-container {

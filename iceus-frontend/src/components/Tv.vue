@@ -1,16 +1,17 @@
 <script setup>
     import tv from '../assets/tv.gif';
-    import ym from '../assets/ym.jpg';
+    import ym from '../assets/ym.png';
     import books from '../assets/books.png';
     import writing from '../assets/writing.png';
     import thousand from '../assets/thousand.png';
-    import monastir from '../assets/monastir.jpg';
-    import derzhavin from '../assets/derzhavin.jpg';
+    import monastir from '../assets/monastir.png';
+    import derzhavin from '../assets/arshavin.png';
+    import iceus from '../assets/iceus.jpg';
     import { ref } from 'vue';
 
     const currentImage = ref(tv);
     let counter = 0;
-    const imageList = [ thousand, derzhavin, ym, monastir, writing, books ];
+    const imageList = [ derzhavin, monastir, ym, books, thousand, writing, iceus ];
 
     const maximize = () => {
         currentImage.value = imageList[counter++];
